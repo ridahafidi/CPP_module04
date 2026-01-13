@@ -28,6 +28,15 @@ AMateria::~AMateria()
     std::cout << "Destructor called\n";
 }
 
+AMateria &AMateria::operator=(const AMateria &other)
+{
+    if (this != &other)
+    {
+        Type = other.Type;
+    }
+    return (*this);
+}
+
 void    AMateria::setType(const std::string &NewType)
 {
     Type = NewType;

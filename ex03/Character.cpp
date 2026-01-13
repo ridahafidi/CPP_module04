@@ -7,6 +7,11 @@ void Character::use(int idx, ICharacter& target)
         std::cout << "The index given is out of range use an index betwee 0 ~ 3\n";
         return ;
     }
+    if (inventory[idx] == 0)
+    {
+        std::cout << "No materia equipped in slot " << idx << "\n";
+        return ;
+    }
     inventory[idx]->use(target);
 }
 
@@ -17,14 +22,19 @@ void Character::unequip(int idx)
         std::cout << "The index given is out of range use an index betwee 0 ~ 3\n";
         return ;
     }
-    inventory[idx]->setType("Empty Type");
+    if (inventory[idx] == 0)
+    {
+        std::cout << "No materia equipped in slot " << idx << "\n";
+        return ;
+    }
+    inventory[idx] = 0;
 }
 void Character::equip(AMateria *m)
 {
     int  i = 0;
-    while (inventory[i]->getType().empty() == false && i <= 3)
+    while (i < 4 && inventory[i] != 0)
         i++;
-    if (i == 3 && inventory[i]->getType().empty() == false)
+    if (i >= 4)
     {
         std::cout << "No more place left to equip this item\n";
         return ;
@@ -46,15 +56,15 @@ void Character::setName(const std::string &NewName)
 
 Character & Character::operator=(const Character & other)
 {
-    Character ret;
-    ret.setName(other.getName());
+    Character *ret = new Character;
+    ret->setName(other.getName());
     int i = 0;
     while(i <= 3)
     {
-        ret.inventory[i] = other.inventory[i];
+        ret->inventory[i] = other.inventory[i];
         i++;
     }
-    return (ret);
+    return (*ret);
 }
 
 Character::Character(const Character &other)
@@ -68,13 +78,17 @@ Character::Character(const Character &other)
     }
 }
 
-Character::Character(std::string const &N):name(N),inventory({0,0,0,0})
+Character::Character(std::string const &N):name(N)
 {
+    for (int i = 0; i < 4; i++)
+        inventory[i] = 0;
     std::cout << "Parametrized Costructor called\n";
 }
 
-Character::Character():name(""),inventory({0,0,0,0})
+Character::Character():name("")
 {
+    for (int i = 0; i < 4; i++)
+        inventory[i] = 0;
     std::cout << "Character Consructor called\n";
 } 
 Character::~Character()

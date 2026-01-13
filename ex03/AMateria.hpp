@@ -14,7 +14,7 @@ public:
     AMateria();
     AMateria(std::string const & type);
     AMateria &operator=(const AMateria &other);
-    ~AMateria();
+    virtual ~AMateria();
     std::string const & getType() const;
     void    setType(const std::string &NewType);
     virtual AMateria* clone() const = 0;

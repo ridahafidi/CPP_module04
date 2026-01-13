@@ -8,7 +8,7 @@
 class MateriaSource : public IMateriaSource
 {
     protected:
-        AMateria *storage;
+        AMateria *storage[4];
     public:
     MateriaSource();
     ~MateriaSource();
@@ -16,35 +16,41 @@ class MateriaSource : public IMateriaSource
     AMateria* createMateria(std::string const & type);
 };
 
-MateriaSource::MateriaSource():storage(0)
+MateriaSource::MateriaSource()
 {
+    for (int i = 0; i < 4; i++)
+        storage[i] = 0;
     std::cout << "MateriaSource Constructor called\n";
 }
 
 MateriaSource::~MateriaSource()
 {
+    for (int i = 0; i < 4; i++)
+    {
+        if (storage[i])
+            delete storage[i];
+    }
     std::cout <<  "MateriaSource Destructor called\n";
 }
 void MateriaSource::learnMateria(AMateria *m)
 {
-    *storage = *m;
+    for (int i = 0; i < 4; i++)
+    {
+        if (storage[i] == 0)
+        {
+            storage[i] = m;
+            return;
+        }
+    }
 }
 AMateria* MateriaSource::createMateria(std::string const & type)
 {
-    if (type == "ice")
+    for (int i = 3; i >= 0; i--)
     {
-        AMateria *ret  = new Ice;
-        *ret = *storage;
-        return (ret);
+        if (storage[i] && storage[i]->getType() == type)
+            return storage[i]->clone();
     }
-    else if (type == "cure")
-    {
-        AMateria *ret  = new Cure;
-        *ret = *storage;
-        return (ret);
-    }
-    else
-        return (0);
+    return (0);
 }
 
 
