@@ -5,7 +5,7 @@
 #include "Ice.hpp"
 #include "Cure.hpp"
 
-class MateriaSource
+class MateriaSource : public IMateriaSource
 {
     protected:
         AMateria *storage;
