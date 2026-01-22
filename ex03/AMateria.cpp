@@ -27,7 +27,7 @@ void AMateria::use(ICharacter& target)
     else if (Type == "cure")
         std::cout << "heals " << target.getName() << "’s wound\n";
     else
-        std::cout << "I m of type : " << target.getName() << " Use a Cure or Ice Materia type instead\n";
+        std::cout << "I have no type yet to be used!\n";
 }
 AMateria::~AMateria()
 {
@@ -37,9 +37,7 @@ AMateria::~AMateria()
 AMateria &AMateria::operator=(const AMateria &other)
 {
     if (this != &other)
-    {
         Type = other.Type;
-    }
     return (*this);
 }
 

@@ -13,7 +13,6 @@ public:
     Brain(const std::string &IdeaOwner);
     Brain(const Brain &other);
     Brain &operator=(const Brain &other);
-    bool operator!=(const Brain &other)const;
     ~Brain();
 };
 

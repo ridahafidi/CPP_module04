@@ -10,19 +10,9 @@ Brain::Brain(const Brain &other)
     }
 }
 
-bool Brain::operator!=(const Brain &other)const
-{
-    int i = 0;
-    while (this->ideas[i] != other.ideas[i])
-    i++;
-    if (100 == i)
-        return (true);
-    return (false);
-}
-
 Brain &Brain::operator=(const Brain &other)
 {
-    if (*this != other)
+    if (this != &other)
     {
         int i = 0;
         while (i < 100)

@@ -4,9 +4,6 @@
 
 int main()
 {
-    // Animal obj; // This line would not compile - Animal is abstract!
-
-    // Test that Dog and Cat can still be instantiated
     const Animal* j = new Dog();
     const Animal* i = new Cat();
 
@@ -15,10 +12,9 @@ int main()
     i->makeSound();
 
     std::cout << "\n=== Testing deep copy ===\n";
+
     Dog basic;
-    {
-        Dog tmp = basic;
-    }
+    Dog tmp = basic;
 
     std::cout << "\n=== Cleaning up ===\n";
     delete j;

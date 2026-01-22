@@ -5,25 +5,37 @@
 
 int main()
 {
-    // Test with array of animals as per subject
-    const int arraySize = 10;
+    int arraySize = 10;
+    
     Animal* animals[arraySize];
-
     std::cout << "=== Creating array of animals ===\n";
-    for (int i = 0; i < arraySize / 2; i++)
-        animals[i] = new Dog();
-    for (int i = arraySize / 2; i < arraySize; i++)
-        animals[i] = new Cat();
-
-    std::cout << "\n=== Testing deep copy ===\n";
-    Dog basic;
+    
+    int i = 0;
+    while(i < arraySize / 2)
     {
-        Dog tmp = basic; // Test copy constructor
-    } // tmp is destroyed here, basic should still be valid
-
+        animals[i] = new Dog();
+            i++;
+    }
+    i = arraySize / 2;
+    while (i < arraySize)
+    {
+        animals[i] = new Cat();
+        i++;
+    }
+    
+    std::cout << "\n=== Testing deep copy ===\n";
+    
+    Dog basic;
+    Dog tmp = basic;
+    
     std::cout << "\n=== Deleting animals ===\n";
-    for (int i = 0; i < arraySize; i++)
+    
+    i = 0;
+    while (i < arraySize)
+    {
         delete animals[i];
+        i++;
+    }
 
     return 0;
 }

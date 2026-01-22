@@ -7,6 +7,9 @@ class Character : public ICharacter
 private:
     std::string name;
     AMateria*   inventory[4];
+    AMateria**  droppedMaterias;
+    int         droppedCount;
+    int         droppedCapacity;
 public:
     Character();
     Character(std::string const & N);

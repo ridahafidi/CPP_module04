@@ -39,5 +39,5 @@ const std::string &WrongAnimal::getType(void)const
 
 void WrongAnimal::makeSound()const
 {
-    std::cout << "WrongAnimal : wach andir lrbk ana\n";
+    std::cout << "WrongAnimal : I don't know neither\n";
 }
