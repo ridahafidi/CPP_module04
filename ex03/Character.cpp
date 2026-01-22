@@ -27,10 +27,15 @@ void Character::unequip(int idx)
         std::cout << "No materia equipped in slot " << idx << "\n";
         return ;
     }
+    // Note: Subject says unequip must NOT delete the Materia
+    // The caller is responsible for handling/deleting the unequipped materia
     inventory[idx] = 0;
 }
+
 void Character::equip(AMateria *m)
 {
+    if (!m)
+        return;
     int  i = 0;
     while (i < 4 && inventory[i] != 0)
         i++;
@@ -42,13 +47,13 @@ void Character::equip(AMateria *m)
     inventory[i] = m;
     std::cout << "Equipped on slot : " << i << std::endl;
     return ;
-
 }
 
 const std::string &Character::getName()const
 {
     return (name);
 }
+
 void Character::setName(const std::string &NewName)
 {
     name = NewName;
@@ -56,25 +61,37 @@ void Character::setName(const std::string &NewName)
 
 Character & Character::operator=(const Character & other)
 {
-    Character *ret = new Character;
-    ret->setName(other.getName());
-    int i = 0;
-    while(i <= 3)
+    std::cout << "Character Copy Assignment Operator called\n";
+    if (this != &other)
     {
-        ret->inventory[i] = other.inventory[i];
-        i++;
+        name = other.name;
+        // Delete existing inventory
+        for (int i = 0; i < 4; i++)
+        {
+            if (inventory[i])
+                delete inventory[i];
+        }
+        // Deep copy inventory
+        for (int i = 0; i < 4; i++)
+        {
+            if (other.inventory[i])
+                inventory[i] = other.inventory[i]->clone();
+            else
+                inventory[i] = 0;
+        }
     }
-    return (*ret);
+    return (*this);
 }
 
-Character::Character(const Character &other)
+Character::Character(const Character &other):name(other.name)
 {
-    setName(other.getName());
-    int i = 0;
-    while(i <= 3)
+    std::cout << "Character Copy Constructor called\n";
+    for (int i = 0; i < 4; i++)
     {
-        inventory[i] = other.inventory[i];
-        i++;
+        if (other.inventory[i])
+            inventory[i] = other.inventory[i]->clone();
+        else
+            inventory[i] = 0;
     }
 }
 
@@ -90,8 +107,14 @@ Character::Character():name("")
     for (int i = 0; i < 4; i++)
         inventory[i] = 0;
     std::cout << "Character Consructor called\n";
-} 
+}
+
 Character::~Character()
 {
+    for (int i = 0; i < 4; i++)
+    {
+        if (inventory[i])
+            delete inventory[i];
+    }
     std::cout << "Character Destrcutor called\n";
 }

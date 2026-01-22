@@ -10,6 +10,19 @@ WrongAnimal::WrongAnimal(const std::string &T):type(T)
     std::cout << "WrongAnimal Parametrized Constructor called\n";
 }
 
+WrongAnimal::WrongAnimal(const WrongAnimal &other):type(other.type)
+{
+    std::cout << "WrongAnimal Copy Constructor called\n";
+}
+
+WrongAnimal &WrongAnimal::operator=(const WrongAnimal &other)
+{
+    std::cout << "WrongAnimal Copy Assignment Operator called\n";
+    if (this != &other)
+        type = other.type;
+    return (*this);
+}
+
 WrongAnimal::~WrongAnimal()
 {
     std::cout << "WrongAnimal Destructor called\n";

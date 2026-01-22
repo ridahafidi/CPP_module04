@@ -14,6 +14,12 @@ AMateria::AMateria():Type("Empty Type")
 {
     std::cout << "Default Constructor called\n";
 }
+
+AMateria::AMateria(const AMateria &other):Type(other.Type)
+{
+    std::cout << "AMateria Copy Constructor called\n";
+}
+
 void AMateria::use(ICharacter& target)
 {
     if (Type == "ice")

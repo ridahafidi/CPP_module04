@@ -11,6 +11,8 @@ protected:
 public:
     Animal();
     Animal(const std::string &T);
+    Animal(const Animal &other);
+    Animal &operator=(const Animal &other);
     void    setType(const std::string &T);
     const std::string &getType(void) const;
     virtual void makeSound() const = 0;
